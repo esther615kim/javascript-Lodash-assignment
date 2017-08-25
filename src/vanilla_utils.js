@@ -22,6 +22,10 @@
    *
    */
 
+  _.identity = function (val) {
+    return val;
+  };
+
   //  `array`의 첫 `n` item들을 가지고 있는 array를 return 합니다.
   // 만약 `n`이 `undefined`이면 첫번째 item을 return 합니다.,
   _.first = function(array, n) {
