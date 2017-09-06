@@ -2,10 +2,10 @@
 (function() {
   'use strict';
 
-  var checkForNativeMethods = function(runVanillaUtilityFunction) {
-    it('should not use the native version of any vanilla utility methods in its implementation', function() {
+  var checkForNativeMethods = function(runVanillaUtilsFunction) {
+    it('should not use the native version of any utils methods in its implementation', function() {
       // These spies are set up in testSupport.js
-      runVanillaUtilityFunction();
+      runVanillaUtilsFunction();
       expect(Array.prototype.map.called).to.equal(false);
       expect(Array.prototype.indexOf.called).to.equal(false);
       expect(Array.prototype.forEach.called).to.equal(false);
@@ -17,7 +17,7 @@
   };
 
   /* jshint ignore:start */
-
+  
   describe('Part II', function() {
 
     describe('contains', function() {
@@ -509,6 +509,36 @@
 
         expect(callback).to.have.been.calledWith(1, 2);
       });
+    });
+
+    describe('shuffle', function() {
+      checkForNativeMethods(function() {
+        _.shuffle([1, 2, 3, 4]);
+      });
+
+      it('should not modify the original object', function() {
+        var numbers = [4, 5, 6];
+        var shuffled = _.shuffle(numbers).sort();
+
+        expect(shuffled).to.not.equal(numbers);
+        expect(numbers).to.eql([4, 5, 6]);
+      });
+
+      it('should have the same elements as the original object', function() {
+        var numbers = [4, 5, 6];
+        var shuffled = _.shuffle(numbers).sort();
+
+        expect(shuffled).to.eql([4, 5, 6]);
+      });
+
+      it('should not be in the same order as the original object', function() {
+        var numbers = [4, 5, 6, 7, 8, 9, 10];
+        var shuffled = _.shuffle(numbers);
+
+        // This test will fail 1/9! times
+        expect(shuffled).to.not.eql([4, 5, 6, 7, 8, 9, 10]);
+      });
+
     });
 
   });

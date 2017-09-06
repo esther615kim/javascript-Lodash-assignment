@@ -2,10 +2,10 @@
 (function() {
   'use strict';
 
-  var checkForNativeMethods = function(runVanillaUtilityFunction) {
-    it('should not use the native version of any vanilla utility methods in its implementation', function() {
+  var checkForNativeMethods = function(runVanillaUtilsFunction) {
+    it('should not use the native version of any util methods in its implementation', function() {
       // These spies are set up in testSupport.js
-      runVanillaUtilityFunction();
+      runVanillaUtilsFunction();
       expect(Array.prototype.map.called).to.equal(false);
       expect(Array.prototype.indexOf.called).to.equal(false);
       expect(Array.prototype.forEach.called).to.equal(false);
@@ -17,6 +17,22 @@
   };
 
   describe('Part I', function() {
+
+    describe('identity', function() {
+      checkForNativeMethods(function() {
+        _.identity(1);
+      });
+
+      it('should return whatever value is passed into it', function() {
+        var uniqueObject = {};
+        expect(_.identity(1)).to.equal(1);
+        expect(_.identity('string')).to.equal('string');
+        /* jshint ignore:start */
+        expect(_.identity(false)).to.be.false; 
+        /* jshint ignore:end */
+        expect(_.identity(uniqueObject)).to.equal(uniqueObject);
+      });
+    });
 
     describe('first', function() {
       checkForNativeMethods(function() {
