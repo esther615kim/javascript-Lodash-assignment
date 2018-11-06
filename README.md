@@ -15,3 +15,16 @@
 - `SpecRunner.html`을 브라우저에 열면 모든 test를 확인할수 있습니다.
 
 **Note:** 자바스크립트 Array.prototype에는 `forEach`, `map`, `reduce`, 그리고 `filter`와 같은 method들이 이미 존재합니다. 작업하실때 이미 존재하는 method들은 사용하지 마세요.
+
+## 과제 진행 및 제출 방법
+
+해당 명령어에 대해서는 각자 찾아보시고 잘 모르시면 물어보세요.
+
+1. 과제 Repository `git clone`
+2. 작업 브랜치 생성 `git branch` or `git checkout -b`
+3. < 과제 작업 >
+4. 수정 사항 `git add`
+5. 수정 사항 `git commit`
+6. 본인 Repository에 작업한 브랜치 `git push`
+7. 작업한 브랜치 -> `master` 브랜치로 Pull Request 열기
+8. 끝
