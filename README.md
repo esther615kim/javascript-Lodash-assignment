@@ -1,21 +1,22 @@
 ![Underdash](/underdash.png)
 
+> 🚨과제를 시작하는 방법과 제출하는 방법은 [과제 관련 안내](https://www.notion.so/vanillacoding/9b7bb71aa95f4bd4906e7496d6ad8db3) 페이지에서 찾을 수 있습니다.
+
 # Underdash JS
 
-## 힌트
+많은 자바스크립트 개발자들이 사용하는 [Lodash](https://lodash.com/)라는 라이브러리의 함수들을 직접 구현해보는 과제입니다.
 
-- [참고 문서](http://underscorejs.org/)에서 같은 이름의 함수를 찾아 구현해야할 함수의 특징을 살펴보세요.
-- "collection"이라 함은 array 또는 object입니다. 그래서 array일때와 object일때를 모두 감안해서 코드를 짜주셔야 합니다.
-  - `Array.isArray(collection)`을 사용하여 `collection`이 `array`인지 아니면 `object`인지 식별할수 있습니다.
-- Javascript는 `Math` object를 가지고 있습니다. [MDN 참고](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Math)
-- function안에는 `arguments`라는 keyword가 있습니다. 이 keyword는 function에 전달된 모든 argument들을 가지고 올수 있습니다. argument들에 하나씩 이름을 선정 하지 않았어도 `arguments` keyword를 사용하여 가지고 올수 있습니다. 이 keyword를 사용하면 function에 어떠한 argument들이 전달될지 미리 알고 있지 않아도 전달된 argument들을 사용할수 있습니다.
-  - `arguments.length`를 사용하여 argument들이 몇개인지 알수 있으며 `arguemnts[i]`를 사용하여 각각의 argument를 읽을 수 있습니다.
-  - `arguments`는 `array`와는 다른 조금 특별한 object입니다. `array` 같기는 하지만 `slice`나 `push`같은 array method들을 사용할수 없습니다.
-  - [MDN 참고](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Functions/arguments)
+- **반드시 아래 Development(작업 방법) 부분을 읽어보세요.**
+- 과제를 시작하는 방법과 제출하는 방법은 [과제 관련 안내](https://www.notion.so/vanillacoding/9b7bb71aa95f4bd4906e7496d6ad8db3) 페이지에서 찾을 수 있습니다.
 
-## 과제 내용
+## Development (작업 방법)
 
-- `src/vanilla-utils.js` 파일속에 비어있는 자바스크립트 함수들을 작성해주시면 됩니다.
-- `SpecRunner.html`을 브라우저에 열면 모든 test를 확인할수 있습니다.
+- `SpecRunner.html` 파일을 브라우저(크롬 권장)에서 열어보세요. (Cmd + O or Ctrl + O)
+- `SpecRunner.html`에 따라 통과하지 못한 테스트를 순차적으로 통과시키며 진행하세요.
+- 여러분이 작업해야 할 파일은 `src/vanilla-utils.js`입니다.
 
-**Note:** 자바스크립트 Array.prototype에는 `forEach`, `map`, `reduce`, 그리고 `filter`와 같은 method들이 이미 존재합니다. 작업하실때 이미 존재하는 method들은 사용하지 마세요.
+## Tips
+
+- 반드시 테스트 내용을 잘 이해한 후, 함수를 구현하세요.
+- 테스트 내용을 기반으로 함수의 기능이 이해되지 않는다면, [Lodash](https://lodash.com/)의 Documentation에서 같은 이름의 함수를 찾아 살펴보세요.
+- "collection"란, 배열 또는 객체를 의미합니다. "collection"에 대한 문제라면, 배열과 객체의 경우를 모두 만족하도록 코드를 작성해주세요.
