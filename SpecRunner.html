@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Vanilla Utils Test Suite</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="lib/css/mocha.css" />
     <script src="lib/chai.js"></script>
     <script src="lib/mocha.js"></script>
@@ -11,20 +11,20 @@
     <script src="lib/testSupport.js"></script>
 
     <!-- Source files -->
-    <script src="src/vanilla-utils.js"></script>
+    <script src="src/underdash.js"></script>
     <!-- End source files -->
 
     <!-- Test files -->
     <script>
-          var clock;
+      var clock;
 
-          before(function() {
-            clock = sinon.useFakeTimers();
-          });
+      before(function () {
+        clock = sinon.useFakeTimers();
+      });
 
-          after(function() {
-            clock.restore();
-          });
+      after(function () {
+        clock.restore();
+      });
     </script>
     <script src="spec/part1.js"></script>
     <script src="spec/part2.js"></script>

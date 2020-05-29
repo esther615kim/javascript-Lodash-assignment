@@ -13,7 +13,7 @@
 
 - `SpecRunner.html` 파일을 브라우저(크롬 권장)에서 열어보세요. (`Cmd + O` or `Ctrl + O`)
 - `SpecRunner.html`에 따라 통과하지 못한 테스트를 순차적으로 통과시키며 진행하세요.
-- 여러분이 작업해야 할 파일은 `src/vanilla-utils.js`입니다.
+- 여러분이 작업해야 할 파일은 `src/underdash.js`입니다.
 
 ## Tips
 
