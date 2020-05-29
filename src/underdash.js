@@ -11,6 +11,14 @@
 
   window._ = {};
 
+  /*
+   *
+   * 🥇첫 번째 퀘스트 indentity입니다.
+   *
+   * 이 외에도 아래에 총 20개 가량의 함수 내용이 비어져 있습니다.
+   * 빈 함수 내용들을 차근차근 채워나가세요.
+   *
+   */
   // Returns whatever value is passed as the argument. This function doesn't
   // seem very useful, but remember it--if a function needs to provide an
   // iterator when the user does not pass one in, this will be handy.

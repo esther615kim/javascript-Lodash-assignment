@@ -15,6 +15,10 @@
 - `SpecRunner.html`에 따라 통과하지 못한 테스트를 순차적으로 통과시키며 진행하세요.
 - 여러분이 작업해야 할 파일은 `src/underdash.js`입니다.
 
+## TODO
+
+- [ ] 위 작업 방법에서 설명된 `SpecRunner.html`의 내용을 참고하여 `src/underdash.js`의 함수들을 완성하세요.
+
 ## Tips
 
 - 반드시 테스트 내용을 잘 이해한 후, 함수를 구현하세요.
