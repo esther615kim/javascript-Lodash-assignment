@@ -260,7 +260,7 @@
   _.flatten = function (nestedArray, result) {};
 
   // Returns a function, that, when invoked, will only be triggered at most once
-  // during a given window of time.  See the Underbar readme for extra details
+  // during a given window of time.  See the lodash doc for extra details
   // on this function.
   //
   // Note: This is difficult! It may take a while to implement.
