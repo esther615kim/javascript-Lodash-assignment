@@ -13,6 +13,7 @@
       expect(Array.prototype.reduce.called).to.equal(false);
       expect(Array.prototype.every.called).to.equal(false);
       expect(Array.prototype.some.called).to.equal(false);
+      expect(Array.prototype.flat.called).to.equal(false);
     });
   };
 
