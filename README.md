@@ -1,13 +1,13 @@
 ![Underdash](/underdash.png)
 
-> 🚨과제를 시작하는 방법과 제출하는 방법은 [과제 관련 안내](https://www.notion.so/vanillacoding/9b7bb71aa95f4bd4906e7496d6ad8db3) 페이지에서 찾을 수 있습니다.
+> 🚨과제를 시작하는 방법과 제출하는 방법은 노션의 프렙 가이드 페이지에서 찾을 수 있습니다.
 
 # Underdash JS
 
 많은 자바스크립트 개발자들이 사용하는 [Lodash](https://lodash.com/)라는 라이브러리의 함수들을 직접 구현해보는 과제입니다.
 
 - **반드시 아래 Development(작업 방법) 부분을 읽어보세요.**
-- 과제를 시작하는 방법과 제출하는 방법은 [과제 관련 안내](https://www.notion.so/vanillacoding/9b7bb71aa95f4bd4906e7496d6ad8db3) 페이지에서 찾을 수 있습니다.
+- 과제를 시작하는 방법과 제출하는 방법은 노션의 프렙 가이드 페이지에서 찾을 수 있습니다.
 
 ## Development (작업 방법)
 
