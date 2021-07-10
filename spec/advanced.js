@@ -2,7 +2,7 @@
 (function () {
   "use strict";
 
-  var checkForNativeMethods = function (runVanillaUtilsFunction) {
+  const checkForNativeMethods = function (runVanillaUtilsFunction) {
     it("should not use the native version of any utils methods in its implementation", function () {
       // These spies are set up in testSupport.js
       runVanillaUtilsFunction();
@@ -26,11 +26,11 @@
       });
 
       it("runs the input function on each item in the array, and returns a list of results", function () {
-        var reverse = function () {
+        const reverse = function () {
           return this.split("").reverse().join("");
         };
 
-        var reversedStrings = _.invoke(["dog", "cat"], reverse);
+        const reversedStrings = _.invoke(["dog", "cat"], reverse);
 
         expect(reversedStrings).to.eql(["god", "tac"]);
       });
@@ -42,7 +42,7 @@
       });
 
       it("runs the specified method on each item in the array, and returns a list of results", function () {
-        var upperCasedStrings = _.invoke(["dog", "cat"], "toUpperCase");
+        const upperCasedStrings = _.invoke(["dog", "cat"], "toUpperCase");
 
         expect(upperCasedStrings).to.eql(["DOG", "CAT"]);
       });
@@ -62,7 +62,7 @@
       });
 
       it("should sort by age", function () {
-        var people = [
+        const people = [
           { name: "curly", age: 50 },
           { name: "moe", age: 30 },
         ];
@@ -74,8 +74,8 @@
       });
 
       it("should handle undefined values", function () {
-        var list = [undefined, 4, 1, undefined, 3, 2];
-        var result = _.sortBy(list, function (i) {
+        const list = [undefined, 4, 1, undefined, 3, 2];
+        const result = _.sortBy(list, function (i) {
           return i;
         });
 
@@ -83,19 +83,19 @@
       });
 
       it("should sort by length", function () {
-        var list = ["one", "two", "three", "four", "five"];
-        var sorted = _.sortBy(list, "length");
+        const list = ["one", "two", "three", "four", "five"];
+        const sorted = _.sortBy(list, "length");
 
         expect(sorted).to.eql(["one", "two", "four", "five", "three"]);
       });
 
       it("should produce results that change the order of the list as little as possible", function () {
-        var Pair = function (x, y) {
+        const Pair = function (x, y) {
           this.x = x;
           this.y = y;
         };
 
-        var collection = [
+        const collection = [
           new Pair(1, 1),
           new Pair(1, 2),
           new Pair(1, 3),
@@ -116,7 +116,7 @@
           new Pair(undefined, 6),
         ];
 
-        var actual = _.sortBy(collection, function (pair) {
+        const actual = _.sortBy(collection, function (pair) {
           return pair.x;
         });
 
@@ -130,14 +130,14 @@
       });
 
       it("can flatten nested arrays", function () {
-        var nestedArray = [1, [2], [3, [[[4]]]]];
+        const nestedArray = [1, [2], [3, [[[4]]]]];
 
         expect(_.flatten(nestedArray)).to.eql([1, 2, 3, 4]);
       });
     });
 
     describe("throttle, when given a wait of 100ms", function () {
-      var callback;
+      let callback;
 
       beforeEach(function () {
         callback = sinon.spy();
@@ -148,7 +148,7 @@
       });
 
       it("should return a function callable twice in the first 200ms", function () {
-        var fn = _.throttle(callback, 100);
+        const fn = _.throttle(callback, 100);
         fn(); // called
         setTimeout(fn, 50);
         setTimeout(fn, 100); // called
