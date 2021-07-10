@@ -2,7 +2,7 @@
 (function () {
   "use strict";
 
-  var checkForNativeMethods = function (runVanillaUtilsFunction) {
+  const checkForNativeMethods = function (runVanillaUtilsFunction) {
     it("should not use the native version of any utils methods in its implementation", function () {
       // These spies are set up in testSupport.js
       runVanillaUtilsFunction();
@@ -32,15 +32,15 @@
       });
 
       it("should not mutate the input array", function () {
-        var input = [1, 2, 3, 4, 5];
-        var result = _.contains(input, 4);
+        const input = [1, 2, 3, 4, 5];
+        const result = _.contains(input, 4);
 
         /*
          * Mutation of inputs should be avoided without good justification otherwise
          * as it can often lead to hard to find bugs and confusing code!
          * Imagine we were reading the code above, and we added the following line:
          *
-         * var lastElement = input[input.length - 1];
+         * const lastElement = input[input.length - 1];
          *
          * Without knowing that mutation occured inside of reduceRight,
          * we would assume that `lastElement` is 5. But if inside of
@@ -62,32 +62,32 @@
       });
 
       it("should return true given an array and a value from that array", function () {
-        var array = [1, 2, 3];
-        var value = 1;
+        const array = [1, 2, 3];
+        const value = 1;
         expect(_.contains(array, value)).to.be.true;
       });
 
       it("should return false given an array and a value not in that array", function () {
-        var array = [1, 2, 3];
-        var value = 4;
+        const array = [1, 2, 3];
+        const value = 4;
         expect(_.contains(array, value)).to.be.false;
       });
 
       it("should return true given a object and a value from that object", function () {
-        var object = { a: 1, b: 2, c: 3 };
-        var value = 1;
+        const object = { a: 1, b: 2, c: 3 };
+        const value = 1;
         expect(_.contains(object, value)).to.be.true;
       });
 
       it("should return false given an object and a value not in that object", function () {
-        var object = { a: 1, b: 2, c: 3 };
-        var value = 4;
+        const object = { a: 1, b: 2, c: 3 };
+        const value = 4;
         expect(_.contains(object, value)).to.be.false;
       });
     });
 
     describe("every", function () {
-      var isEven = function (num) {
+      const isEven = function (num) {
         return num % 2 === 0;
       };
 
@@ -135,7 +135,7 @@
     });
 
     describe("some", function () {
-      var isEven = function (number) {
+      const isEven = function (number) {
         return number % 2 === 0;
       };
 
@@ -189,45 +189,45 @@
       });
 
       it("returns the first argument", function () {
-        var destination = {};
-        var source = {};
-        var extended = _.extend(destination, source);
+        const destination = {};
+        const source = {};
+        const extended = _.extend(destination, source);
 
         expect(extended).to.equal(destination);
       });
 
       it("should extend an object with the attributes of another", function () {
-        var destination = {};
-        var source = { a: "b" };
-        var extended = _.extend(destination, source);
+        const destination = {};
+        const source = { a: "b" };
+        const extended = _.extend(destination, source);
 
         expect(extended.a).to.equal("b");
       });
 
       it("should override properties found on the destination", function () {
-        var destination = { a: "x" };
-        var source = { a: "b" };
-        var extended = _.extend(destination, source);
+        const destination = { a: "x" };
+        const source = { a: "b" };
+        const extended = _.extend(destination, source);
 
         expect(extended.a).to.equal("b");
       });
 
       it("should not override properties not found in the source", function () {
-        var destination = { x: "x" };
-        var source = { a: "b" };
-        var extended = _.extend(destination, source);
+        const destination = { x: "x" };
+        const source = { a: "b" };
+        const extended = _.extend(destination, source);
 
         expect(extended.x).to.equal("x");
       });
 
       it("should extend from multiple source objects", function () {
-        var extended = _.extend({ x: 1 }, { a: 2 }, { b: 3 });
+        const extended = _.extend({ x: 1 }, { a: 2 }, { b: 3 });
 
         expect(extended).to.eql({ x: 1, a: 2, b: 3 });
       });
 
       it("in the case of a conflict, it should use the last property's values when extending from multiple source objects", function () {
-        var extended = _.extend({ x: "x" }, { a: "a", x: 2 }, { a: 1 });
+        const extended = _.extend({ x: "x" }, { a: "a", x: 2 }, { a: 1 });
 
         expect(extended).to.eql({ x: 2, a: 1 });
       });
@@ -254,9 +254,9 @@
          * and we are guaranteed that only the contents of our original object were modified
          */
 
-        var destination = {};
-        var source = {};
-        var defaulted = _.defaults(destination, source);
+        const destination = {};
+        const source = {};
+        const defaulted = _.defaults(destination, source);
 
         expect(defaulted).to.equal(destination); // .equal uses (===) under the hood
       });
@@ -283,8 +283,8 @@
          * If you're not sure how to do that, Stack Overflow has plenty to say on the topic.
          */
 
-        var destination = {};
-        var source = { a: 1 };
+        const destination = {};
+        const source = { a: 1 };
 
         _.defaults(destination, source);
 
@@ -292,8 +292,8 @@
       });
 
       it("should copy any property whose key is not already set on the target", function () {
-        var destination = {};
-        var source = { a: 1, b: 2, c: "three" };
+        const destination = {};
+        const source = { a: 1, b: 2, c: "three" };
 
         _.defaults(destination, source);
 
@@ -303,8 +303,8 @@
       });
 
       it("should not copy a property if that key is already set on the target", function () {
-        var destination = { a: 10 };
-        var source = { a: 1 };
+        const destination = { a: 10 };
+        const source = { a: 1 };
 
         _.defaults(destination, source);
 
@@ -312,8 +312,8 @@
       });
 
       it("should not copy any property whose key is already set on the target", function () {
-        var destination = { a: 1, b: 2 };
-        var source = { a: 100, b: 200, c: 300 };
+        const destination = { a: 1, b: 2 };
+        const source = { a: 100, b: 200, c: 300 };
 
         _.defaults(destination, source);
 
@@ -334,8 +334,8 @@
          * precise enough with our conditional check, we might get these unexpected results
          */
 
-        var destination = { a: "", b: 0, c: NaN };
-        var source = { a: 1, b: 2, c: 3 };
+        const destination = { a: "", b: 0, c: NaN };
+        const source = { a: 1, b: 2, c: 3 };
 
         _.defaults(destination, source);
 
@@ -345,10 +345,10 @@
       });
 
       it("should copy properties source an arbitrary number of source objects", function () {
-        var destination = {};
-        var source = { a: 1 };
-        var anotherSource = { b: 2, c: "three" };
-        var aThirdSource = { d: "four" };
+        const destination = {};
+        const source = { a: 1 };
+        const anotherSource = { b: 2, c: "three" };
+        const aThirdSource = { d: "four" };
 
         _.defaults(destination, source, anotherSource, aThirdSource);
 
@@ -359,9 +359,9 @@
       });
 
       it("should prefer the first value found when two objects are provided with properties at the same key", function () {
-        var destination = {};
-        var source = { a: 1 };
-        var anotherSource = { a: "one" };
+        const destination = {};
+        const source = { a: 1 };
+        const anotherSource = { a: "one" };
 
         _.defaults(destination, source, anotherSource);
 
@@ -371,8 +371,8 @@
 
     describe("once", function () {
       checkForNativeMethods(function () {
-        var num = 0;
-        var increment = _.once(function () {
+        let num = 0;
+        const increment = _.once(function () {
           num += 1;
         });
       });
@@ -383,14 +383,14 @@
 
       it("should return a function", function () {
         // noop is short for `no-operation` and is pronounced `no-op`
-        var noop = _.once(function () {});
+        const noop = _.once(function () {});
 
         expect(noop).to.be.an.instanceOf(Function);
       });
 
       it("should only run a user-defined function if it has not been run before", function () {
-        var num = 0;
-        var increment = _.once(function () {
+        let num = 0;
+        const increment = _.once(function () {
           num++;
         });
 
@@ -402,7 +402,7 @@
       });
 
       it("should apply arguments to the user-defined function", function () {
-        var add = _.once(function (x, y, z) {
+        const add = _.once(function (x, y, z) {
           return x + y + z;
         });
 
@@ -410,7 +410,7 @@
       });
 
       it("should return the result of the first call for every subsequent call", function () {
-        var add = _.once(function (x, y, z) {
+        const add = _.once(function (x, y, z) {
           return x + y + z;
         });
 
@@ -421,7 +421,8 @@
     });
 
     describe("memoize", function () {
-      var add, memoAdd;
+      let add;
+      let memoAdd;
 
       beforeEach(function () {
         add = function (a, b) {
@@ -452,10 +453,10 @@
         // Here, we wrap a dummy function in a spy. A spy is a wrapper function (much like _.memoize
         // or _.once) that keeps track of interesting information about the function it's spying on;
         // e.g. whether or not the function has been called.
-        var spy = sinon.spy(function () {
+        const spy = sinon.spy(function () {
           return "Dummy output";
         });
-        var memoSpy = _.memoize(spy);
+        const memoSpy = _.memoize(spy);
 
         memoSpy(10);
         expect(spy).to.have.been.calledOnce;
@@ -465,10 +466,10 @@
 
       it("should not run the memoized function twice when given a reference type as an argument", function () {
         // Be careful how you are checking if a set of arguments has been passed in already
-        var spy = sinon.spy(function () {
+        const spy = sinon.spy(function () {
           return "Dummy output";
         });
-        var memoSpy = _.memoize(spy);
+        const memoSpy = _.memoize(spy);
 
         memoSpy([1, 2, 3]);
         expect(spy).to.have.been.calledOnce;
@@ -478,10 +479,10 @@
 
       it("should run the memoized function twice when given an array and then given a list of arguments", function () {
         // Be careful how you are checking if a set of arguments has been passed in already
-        var spy = sinon.spy(function () {
+        const spy = sinon.spy(function () {
           return "Dummy output";
         });
-        var memoSpy = _.memoize(spy);
+        const memoSpy = _.memoize(spy);
 
         memoSpy([1, 2, 3]);
         expect(spy).to.have.been.calledOnce;
@@ -491,7 +492,7 @@
     });
 
     describe("delay", function () {
-      var callback;
+      let callback;
 
       beforeEach(function () {
         callback = sinon.spy();
