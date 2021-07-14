@@ -29,8 +29,7 @@
    * ===========
    *
    * In this section, we'll have a look at functions that operate on collections
-   * of values; in JavaScript, a 'collection' is something that can contain a
-   * number of values--either an array or an object.
+   * of values; 
    *
    *
    * IMPORTANT NOTE!
@@ -83,35 +82,13 @@
   _.filter = function (collection, test) {};
 
   // Return all elements of an array that don't pass a truth test.
-  _.reject = function (collection, test) {
-    // TIP: see if you can re-use _.filter() here, without simply
-    // copying code in and modifying it
-  };
+  _.reject = function (collection, test) {};
 
   // Return the results of applying an iterator to each element.
   _.map = function (collection, iterator) {
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
-  };
-
-  /*
-   * TIP: map is really handy when you want to transform an array of
-   * values into a new array of values. _.pluck() is solved for you
-   * as an example of this.
-   */
-
-  // [DO NOT MODIFY]
-  // Takes an array of objects and returns and array of the values of
-  // a certain property in it. E.g. take an array of people and return
-  // an array of just their ages
-  _.pluck = function (collection, key) {
-    // TIP: map is really handy when you want to transform an array of
-    // values into a new array of values. _.pluck() is solved for you
-    // as an example of this.
-    return _.map(collection, function (item) {
-      return item[key];
-    });
   };
 
   // Reduces an array or object to a single value by repetitively calling
@@ -124,16 +101,7 @@
   // the case where a starting value is not passed, the iterator is not invoked
   // until the second element, with the first element as its second argument.
   //
-  // Example:
-  //   var numbers = [1,2,3];
-  //   var sum = _.reduce(numbers, function(total, number){
-  //     return total + number;
-  //   }, 0); // should be 6
-  //
-  //   var identity = _.reduce([5], function(total, number){
-  //     return total + number * number;
-  //   }); // should be 5, regardless of the iterator function passed in
-  //          No accumulator is given so the first element is used.
+  // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
   _.reduce = function (collection, iterator, accumulator) {};
 
   // [DO NOT MODIFY]
@@ -160,9 +128,7 @@
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
-  _.some = function (collection, iterator) {
-    // TIP: There's a very clever way to re-use every() here.
-  };
+  _.some = function (collection, iterator) {};
 
   /**
    * OBJECTS
@@ -187,6 +153,11 @@
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function (obj) {};
+
+  /**
+   * ADVANCED COLLECTION OPERATIONS
+   * ==============================
+   */
 
   /**
    * FUNCTIONS
@@ -230,28 +201,9 @@
   // instead if possible.
   _.memoize = function (func) {};
 
-  // Delays a function for the given number of milliseconds, and then calls
-  // it with the arguments supplied.
-  //
-  // The arguments for the original function are passed after the wait
-  // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
-  // call someFunction('a', 'b') after 500ms
-  _.delay = function (func, wait) {};
-
-  /**
-   * ADVANCED COLLECTION OPERATIONS
-   * ==============================
-   */
-
   // Calls the method named by functionOrKey on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
   _.invoke = function (collection, functionOrKey) {};
-
-  // Sort the object's values by a criterion produced by an iterator.
-  // If iterator is a string, sort objects by that property with the name
-  // of that string. For example, _.sortBy(people, 'name') should sort
-  // an array of people by their name.
-  _.sortBy = function (collection, iterator) {};
 
   // Takes a multidimensional array and converts it to a one-dimensional array.
   // The new array should contain all elements of the multidimensional array.

@@ -20,6 +20,128 @@
   };
 
   describe("Advanced", function () {
+    describe("once", function () {
+      checkForNativeMethods(function () {
+        let num = 0;
+        const increment = _.once(function () {
+          num += 1;
+        });
+      });
+
+      it("should be a function", function () {
+        expect(_.once).to.be.an.instanceOf(Function);
+      });
+
+      it("should return a function", function () {
+        // noop is short for `no-operation` and is pronounced `no-op`
+        const noop = _.once(function () {});
+
+        expect(noop).to.be.an.instanceOf(Function);
+      });
+
+      it("should only run a user-defined function if it has not been run before", function () {
+        let num = 0;
+        const increment = _.once(function () {
+          num++;
+        });
+
+        increment();
+        increment();
+        increment();
+
+        expect(num).to.equal(1);
+      });
+
+      it("should apply arguments to the user-defined function", function () {
+        const add = _.once(function (x, y, z) {
+          return x + y + z;
+        });
+
+        expect(add(1, 2, 3)).to.equal(6);
+      });
+
+      it("should return the result of the first call for every subsequent call", function () {
+        const add = _.once(function (x, y, z) {
+          return x + y + z;
+        });
+
+        expect(add(1, 2, 3)).to.equal(6);
+        expect(add(4, 5, 6)).to.equal(6);
+        expect(add(7, 8, 9)).to.equal(6);
+      });
+    });
+
+    describe("memoize", function () {
+      let add;
+      let memoAdd;
+
+      beforeEach(function () {
+        add = function (a, b) {
+          return a + b;
+        };
+
+        memoAdd = _.memoize(add);
+      });
+
+      checkForNativeMethods(function () {
+        _.memoize(function add(a, b) {
+          return a + b;
+        });
+      });
+
+      it("should produce the same result as the non-memoized version", function () {
+        expect(add(1, 2)).to.equal(3);
+        expect(memoAdd(1, 2)).to.equal(3);
+      });
+
+      it("should give different results for different arguments", function () {
+        expect(memoAdd(1, 2)).to.equal(3);
+        expect(memoAdd(3, 4)).to.equal(7);
+        expect(memoAdd(1, 3)).to.equal(4);
+      });
+
+      it("should not run the memoized function twice when given a primitive type as an argument", function () {
+        // Here, we wrap a dummy function in a spy. A spy is a wrapper function (much like _.memoize
+        // or _.once) that keeps track of interesting information about the function it's spying on;
+        // e.g. whether or not the function has been called.
+        const spy = sinon.spy(function () {
+          return "Dummy output";
+        });
+        const memoSpy = _.memoize(spy);
+
+        memoSpy(10);
+        expect(spy).to.have.been.calledOnce;
+        memoSpy(10);
+        expect(spy).to.have.been.calledOnce;
+      });
+
+      it("should not run the memoized function twice when given a reference type as an argument", function () {
+        // Be careful how you are checking if a set of arguments has been passed in already
+        const spy = sinon.spy(function () {
+          return "Dummy output";
+        });
+        const memoSpy = _.memoize(spy);
+
+        memoSpy([1, 2, 3]);
+        expect(spy).to.have.been.calledOnce;
+        memoSpy([1, 2, 3]);
+        expect(spy).to.have.been.calledOnce;
+      });
+
+      it("should run the memoized function twice when given an array and then given a list of arguments", function () {
+        // Be careful how you are checking if a set of arguments has been passed in already
+        const spy = sinon.spy(function () {
+          return "Dummy output";
+        });
+        const memoSpy = _.memoize(spy);
+
+        memoSpy([1, 2, 3]);
+        expect(spy).to.have.been.calledOnce;
+        memoSpy(1, 2, 3);
+        expect(spy).to.have.been.calledTwice;
+      });
+    });
+
     describe("invoke, when provided a function reference", function () {
       checkForNativeMethods(function () {
         _.invoke(["dog", "cat"], _.identity);
@@ -45,82 +167,6 @@
         const upperCasedStrings = _.invoke(["dog", "cat"], "toUpperCase");
 
         expect(upperCasedStrings).to.eql(["DOG", "CAT"]);
-      });
-    });
-
-    describe("sortBy", function () {
-      checkForNativeMethods(function () {
-        _.sortBy(
-          [
-            { name: "curly", age: 50 },
-            { name: "moe", age: 30 },
-          ],
-          function (person) {
-            return person.age;
-          }
-        );
-      });
-
-      it("should sort by age", function () {
-        const people = [
-          { name: "curly", age: 50 },
-          { name: "moe", age: 30 },
-        ];
-        people = _.sortBy(people, function (person) {
-          return person.age;
-        });
-
-        expect(_.pluck(people, "name")).to.eql(["moe", "curly"]);
-      });
-
-      it("should handle undefined values", function () {
-        const list = [undefined, 4, 1, undefined, 3, 2];
-        const result = _.sortBy(list, function (i) {
-          return i;
-        });
-
-        expect(result).to.eql([1, 2, 3, 4, undefined, undefined]);
-      });
-
-      it("should sort by length", function () {
-        const list = ["one", "two", "three", "four", "five"];
-        const sorted = _.sortBy(list, "length");
-
-        expect(sorted).to.eql(["one", "two", "four", "five", "three"]);
-      });
-
-      it("should produce results that change the order of the list as little as possible", function () {
-        const Pair = function (x, y) {
-          this.x = x;
-          this.y = y;
-        };
-
-        const collection = [
-          new Pair(1, 1),
-          new Pair(1, 2),
-          new Pair(1, 3),
-          new Pair(1, 4),
-          new Pair(1, 5),
-          new Pair(1, 6),
-          new Pair(2, 1),
-          new Pair(2, 2),
-          new Pair(2, 3),
-          new Pair(2, 4),
-          new Pair(2, 5),
-          new Pair(2, 6),
-          new Pair(undefined, 1),
-          new Pair(undefined, 2),
-          new Pair(undefined, 3),
-          new Pair(undefined, 4),
-          new Pair(undefined, 5),
-          new Pair(undefined, 6),
-        ];
-
-        const actual = _.sortBy(collection, function (pair) {
-          return pair.x;
-        });
-
-        expect(actual).to.eql(collection);
       });
     });
 

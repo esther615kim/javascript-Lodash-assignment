@@ -409,40 +409,6 @@
       });
     });
 
-    describe("pluck", function () {
-      checkForNativeMethods(function () {
-        const people = [
-          { name: "moe", age: 30 },
-          { name: "curly", age: 50 },
-        ];
-
-        _.pluck(people, "name");
-      });
-
-      it("should return values contained at a user-defined property", function () {
-        const people = [
-          { name: "moe", age: 30 },
-          { name: "curly", age: 50 },
-        ];
-
-        expect(_.pluck(people, "name")).to.eql(["moe", "curly"]);
-      });
-
-      it("should not modify the original array", function () {
-        const people = [
-          { name: "moe", age: 30 },
-          { name: "curly", age: 50 },
-        ];
-
-        _.pluck(people, "name");
-
-        expect(people).to.eql([
-          { name: "moe", age: 30 },
-          { name: "curly", age: 50 },
-        ]);
-      });
-    });
-
     describe("reduce", function () {
       checkForNativeMethods(function () {
         const add = function (tally, item) {
