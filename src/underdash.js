@@ -67,7 +67,7 @@
   //
   // Note: _.each does not have a return value, but rather simply runs the
   // iterator function over each item in the input collection.
-  // 72-74줄 for in 으로 바꾸면 vailidation 통과 못함
+  //아래 코드 validation 통과하려고 계속 수정하다보니 이런 모습이..for문 쪽을 리팩토링하고 싶은데ㅠ..코멘트 있으실까요?
   _.each = function (collection, iterator) {
     if (Array.isArray(collection)) {
       for (let i = 0; i < collection.length; i++) {
@@ -101,7 +101,7 @@
   // Return all elements of an array that pass a truth test.
   _.filter = function (collection, test) {
     const result = [];
-    //방법1. for (const item of collection) { 방법1과 비교하면 어떤 게 더 나은 방법인지...
+    //방법1. for (const item of collection) { <=아래 _.each와 비교하면 어떤 게 더 나은 방법일까요
     _.each(collection, (item) => {
       if (test(item)) {
         result.push(item);
@@ -179,23 +179,7 @@
   // Determine whether all of the elements match a truth test.
   _.every = function (collection, iterator) {
     // TIP: Try re-using reduce() here.
-    //#1.reduce 사용시  validation 2개 fail, _.each 적용해도 vaildaiton 1개 fail
-    // if (!iterator) {
-    //   for (const key in collection) {
-    //     if (!collection[key]) {
-    //       return false;
-    //     }
-    //   }
-    //   return true;
-    // }
-    // return _.reduce(
-    //   collection,
-    //   function (acc, item) {
-    //     if (!acc) return false;
-    //     return iterator(item);
-    //   },
-    //   true
-    // );
+    // 질문👩‍🔧 183-188줄은 iterator가 없는 조건인데요 좀 더 간단히 줄일 방법(-.some 도 적용)이 뭐가 있을까요.
     if (!iterator) {
       for (const key in collection) {
         if (!collection[key]) {
@@ -204,12 +188,15 @@
       }
       return true;
     } else {
-      for (const key in collection) {
-        if (!iterator(collection[key])) {
-          return false;
-        }
-      }
-      return true;
+      const result = _.reduce(
+        collection,
+        function (isTruthy, item) {
+          if (!isTruthy) return false;
+          return iterator(item);
+        },
+        true
+      );
+      return Boolean(result);
     }
   };
 
@@ -227,8 +214,8 @@
     }
     const result = _.reduce(
       collection,
-      function (acc, item) {
-        if (acc) return true;
+      function (isTruthy, item) {
+        if (isTruthy) return true;
         return iterator(item);
       },
       false
@@ -254,29 +241,30 @@
   //   }, {
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
-  _.extend = function (obj) {
-    //#1 이게 2줄이라 너무 편리했는데 validation(returns the first argument)에 계속 걸리네요. 
+  _.extend = function (obj, ...args) {
+    //아래 코드로 적용하는 건 어떤지 리뷰어님의 의견 궁금해서 주석 남겨두었어요.
     // const result = Object.assign({}, ...obj);
     // return result;
-    _.each(arguments, (args) => {
-      _.each(args, (value, key) => {
-        obj[key] = value;
-      });
-    });
+    _.each(args, (object) => {
+      for (const key in object) {
+        obj[key] = object[key];
+      }
+    })
 
     return obj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
-  _.defaults = function (obj) {
-    for (let i = 0; i < arguments.length; i++) {
-      for (const key in arguments[i]) {
+  _.defaults = function (obj, ...args) {
+
+    _.each(args, (object) => {
+      for (const key in object) {
         if (!obj.hasOwnProperty(key)) {
-          obj[key] = arguments[i][key];
+          obj[key] = object[key];
         }
       }
-    }
+    })
     return obj;
   };
 
@@ -325,8 +313,9 @@
   // _.memoize should return a function that, when called, will check if it has
   // already computed the result for the given argument and return that value
   // instead if possible.
-  //마지막 validation 조건인 => run twice when given an array and then given a list of arguments pass조건 넣어야함
-  //지금 코딩으로는 [1,2,3] 과 1,2,3이 같은 key로 잡힘..
+
+  //❌에러코드 should run the memoized function twice when given an array and then given a list of arguments
+  //지금은 [1,2,3] 과 1,2,3이 같은 key로 잡히는 게 문제인 것 같은데..
   _.memoize = function (func) {
     const addedMemo = {};
     return (...args) => {
