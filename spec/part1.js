@@ -83,7 +83,7 @@
     describe("each", function () {
       checkForNativeMethods(function () {
         /* jshint ignore:start */
-        _.each([1, 2, 3, 4], function (number) {});
+        _.each([1, 2, 3, 4], function (number) { });
         /* jshint ignore:end */
       });
 
@@ -93,7 +93,7 @@
 
       it("should not return anything", function () {
         /* jshint ignore:start */
-        const returnValue = _.each([], function () {});
+        const returnValue = _.each([], function () { });
         expect(returnValue).to.not.exist;
         /* jshint ignore:end */
       });

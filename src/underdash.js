@@ -145,12 +145,13 @@
   _.reduce = function (collection, iterator, accumulator) {
     if (accumulator === undefined) {
       accumulator = collection[0];
-      for (let i = 1; i < collection.length; i++) {
-        accumulator = iterator(accumulator, collection[i]);
+      const newCollelction = collection.slice(1);
+      for (const item in newCollelction) {
+        accumulator = iterator(accumulator, newCollelction[item]);
       }
     } else {
-      for (let i = 0; i < collection.length; i++) {
-        accumulator = iterator(accumulator, collection[i]);
+      for (const item in collection) {
+        accumulator = iterator(accumulator, collection[item]);
       }
     }
     return accumulator;
@@ -176,29 +177,33 @@
   // Determine whether all of the elements match a truth test.
   _.every = function (collection, iterator) {
     // TIP: Try re-using reduce() here.
-    //#1 reduce 사용 => -.reduce로 바꾸고 싶었는데 잘 안되었어요.
+    //#1.reduce 사용시  validation 2개 fail 
     // if (!iterator) {
-    //   for (const item of collection) {
-    //     if (!Boolean(item)) return false;
+    //   for (const key in collection) {
+    //     if (!collection[key]) {
+    //       return false;
+    //     }
     //   }
     //   return true;
-    // } else {
-    //   const result = collection.reduce((acc, item) => {
+    // }
+    // return _.reduce(
+    //   collection,
+    //   function (acc, item) {
     //     if (!acc) return false;
     //     return iterator(item);
-    //   }, true);
-    //   return Boolean(result);
-    // }
+    //   },
+    //   true
+    // );
     if (!iterator) {
-      for (const item in collection) {
-        if (!collection[item]) {
+      for (const key in collection) {
+        if (!collection[key]) {
           return false;
         }
       }
       return true;
     } else {
-      for (const item in collection) {
-        if (!iterator(collection[item])) {
+      for (const key in collection) {
+        if (!iterator(collection[key])) {
           return false;
         }
       }
@@ -308,6 +313,8 @@
   // _.memoize should return a function that, when called, will check if it has
   // already computed the result for the given argument and return that value
   // instead if possible.
+  //마지막 validation 조건인 => run twice when given an array and then given a list of arguments pass조건 넣어야함
+  //지금 코딩으로는 [1,2,3] 과 1,2,3이 같은 key로 잡힘..
   _.memoize = function (func) {
     const addedMemo = {};
     return (...args) => {
@@ -316,7 +323,6 @@
       }
       const result = func(...args);
       addedMemo[args] = result;
-      console.log(addedMemo);
       return result;
     }
   };
@@ -361,6 +367,7 @@
   // on this function.
   //
   // Note: This is difficult! It may take a while to implement.
+  //구글링 참조
   _.throttle = function (func, wait) {
     let isDelayed = false;
     return () => {
