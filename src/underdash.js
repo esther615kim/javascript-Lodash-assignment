@@ -67,6 +67,7 @@
   //
   // Note: _.each does not have a return value, but rather simply runs the
   // iterator function over each item in the input collection.
+  // 72-74줄 for in 으로 바꾸면 vailidation 통과 못함
   _.each = function (collection, iterator) {
     if (Array.isArray(collection)) {
       for (let i = 0; i < collection.length; i++) {
@@ -74,7 +75,7 @@
       }
     }
     if (!Array.isArray(collection) && typeof collection === "object")
-      for (var key in collection) {
+      for (const key in collection) {
         iterator(collection[key], key, collection);
       }
   };
@@ -100,22 +101,23 @@
   // Return all elements of an array that pass a truth test.
   _.filter = function (collection, test) {
     const result = [];
-    for (const item of collection) {
+    //방법1. for (const item of collection) { 방법1과 비교하면 어떤 게 더 나은 방법인지...
+    _.each(collection, (item) => {
       if (test(item)) {
         result.push(item);
       }
-    }
+    });
     return result;
   };
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function (collection, test) {
     const result = [];
-    for (const item of collection) {
+    _.each(collection, (item) => {
       if (!test(item)) {
         result.push(item);
       }
-    }
+    });
     return result;
   };
 
@@ -125,9 +127,9 @@
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
     const result = [];
-    for (const item of collection) {
+    _.each(collection, (item) => {
       result.push(iterator(item));
-    }
+    });
     return result;
   };
 
@@ -146,13 +148,13 @@
     if (accumulator === undefined) {
       accumulator = collection[0];
       const newCollelction = collection.slice(1);
-      for (const item in newCollelction) {
-        accumulator = iterator(accumulator, newCollelction[item]);
-      }
+      _.each(newCollelction, (item) => {
+        accumulator = iterator(accumulator, item);
+      });
     } else {
-      for (const item in collection) {
-        accumulator = iterator(accumulator, collection[item]);
-      }
+      _.each(collection, (item) => {
+        accumulator = iterator(accumulator, item);
+      })
     }
     return accumulator;
   };
@@ -177,7 +179,7 @@
   // Determine whether all of the elements match a truth test.
   _.every = function (collection, iterator) {
     // TIP: Try re-using reduce() here.
-    //#1.reduce 사용시  validation 2개 fail 
+    //#1.reduce 사용시  validation 2개 fail, _.each 적용해도 vaildaiton 1개 fail
     // if (!iterator) {
     //   for (const key in collection) {
     //     if (!collection[key]) {
@@ -223,10 +225,14 @@
         }
       }
     }
-    const result = collection.reduce((acc, item) => {
-      if (acc) return true;
-      return iterator(item);
-    }, false);
+    const result = _.reduce(
+      collection,
+      function (acc, item) {
+        if (acc) return true;
+        return iterator(item);
+      },
+      false
+    );
     return Boolean(result);
   };
 
@@ -248,15 +254,21 @@
   //   }, {
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
-  _.extend = function (...obj) {
-    const result = Object.assign({}, ...obj);
-    return result;
+  _.extend = function (obj) {
+    //#1 이게 2줄이라 너무 편리했는데 validation(returns the first argument)에 계속 걸리네요. 
+    // const result = Object.assign({}, ...obj);
+    // return result;
+    _.each(arguments, (args) => {
+      _.each(args, (value, key) => {
+        obj[key] = value;
+      });
+    });
+
+    return obj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
-  //defaults=> extend 함수에 obj를 돌려봐서 key 값이 중복되면 push가 안되는 조건 걸어서 만들다가 native version 제약조건(reduce,indexof 때문에 막혔습니다.
-  //아래는 구글링해서 참조했습니다.
   _.defaults = function (obj) {
     for (let i = 0; i < arguments.length; i++) {
       for (const key in arguments[i]) {
@@ -336,9 +348,9 @@
         return String.prototype[functionOrKey].apply(item);
       });
     } else {
-      for (const item of collection) {
+      _.each(collection, (item) => {
         result.push(functionOrKey.apply(item));
-      }
+      });
     }
     return result;
   };
@@ -367,7 +379,6 @@
   // on this function.
   //
   // Note: This is difficult! It may take a while to implement.
-  //구글링 참조
   _.throttle = function (func, wait) {
     let isDelayed = false;
     return () => {
