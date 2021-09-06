@@ -55,11 +55,12 @@
   _.last = function (array, n) {
     if (n === 0) {
       return array.slice(0, n);
-    } else {
-      return n === undefined
-        ? array[array.length - 1]
-        : array.slice(-n, array.length);
+  _.last = function (array, n) {
+    if (n === 0) {
+      return [];
     }
+
+    return n === undefined ? array[array.length - 1] : array.slice(-n);
   };
 
   // Call iterator(value, key, collection) for each element of collection.
