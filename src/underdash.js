@@ -70,15 +70,23 @@
   // iterator function over each item in the input collection.
   //아래 코드 validation 통과하려고 계속 수정하다보니 이런 모습이..for문 쪽을 리팩토링하고 싶은데ㅠ..코멘트 있으실까요?
   _.each = function (collection, iterator) {
+    if (typeof collection !== "object") {
+       throw new Error(`${collection} is NOT object | array`);
+    }
+    
     if (Array.isArray(collection)) {
       for (let i = 0; i < collection.length; i++) {
         iterator(collection[i], i, collection);
       }
+
+      return;
     }
-    if (!Array.isArray(collection) && typeof collection === "object")
-      for (const key in collection) {
+
+    for (const key in collection) {
+      if (collection.hasOwnProperty(key)) {
         iterator(collection[key], key, collection);
       }
+    }
   };
 
   // [DO NOT MODIFY]
