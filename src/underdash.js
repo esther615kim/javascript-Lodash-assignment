@@ -154,17 +154,18 @@
   //
   // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
   _.reduce = function (collection, iterator, accumulator) {
-    if (accumulator === undefined) {
-      accumulator = collection[0];
-      const newCollelction = collection.slice(1);
-      _.each(newCollelction, (item) => {
-        accumulator = iterator(accumulator, item);
-      });
-    } else {
-      _.each(collection, (item) => {
-        accumulator = iterator(accumulator, item);
-      })
+    let coll = collection;
+    let acc = accumulator;
+
+    if (acc === undefined) {
+      coll = collection.slice(1);
+      acc = collection[0];
     }
+
+    _.each(coll, (item) => {
+      accumulator = iterator(acc, item);
+    });
+
     return accumulator;
   };
 
