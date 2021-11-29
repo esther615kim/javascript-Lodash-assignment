@@ -1,22 +1,20 @@
 ### Underdash JS
 
-많은 자바스크립트 개발자들이 사용하는 [Lodash](https://lodash.com/)라는 라이브러리의 함수들을 직접 구현해보는 과제입니다.
+`TASKS-DONE` 
+- 1.to get an 'inside view' of one of the most heavily used JavaScript libraries, lodash (50m downloads on NPM last month)
+- 2.do not use higher-order native array methods such as map, filter, reduce, forEach in your implementation in order to gain a deeper understanding of how these methods work behind the scenes.
 
-- **반드시 아래 Development(작업 방법) 부분을 읽어보세요.**
-- 과제를 시작하는 방법과 제출하는 방법은 노션의 프렙 가이드 페이지에서 찾을 수 있습니다.
+#### Development 
 
-#### Development (작업 방법)
-
-- `SpecRunner.html` 파일을 브라우저(크롬 권장)에서 열어보세요. (`Cmd + O` or `Ctrl + O`)
-- `SpecRunner.html`에 따라 통과하지 못한 테스트를 순차적으로 통과시키며 진행하세요.
-- 여러분이 작업해야 할 파일은 `src/underdash.js`입니다.
+- Open the `SpecRunner.html` file in a browser (Chrome is recommended). (`Cmd + O` or `Ctrl + O`)
+- Pass each test sequentially followed by`SpecRunner.html`.
+- Work with the`src/underdash.js` file.
 
 #### TODO
 
-- [ ] 위 작업 방법에서 설명된 `SpecRunner.html`의 내용을 참고하여 `src/underdash.js`의 함수들을 완성하세요.
+- [✅] complete the functions in `src/underdash.js' files. 
 
 #### Tips
 
-- 반드시 테스트 내용을 잘 이해한 후, 함수를 구현하세요.
-- 테스트 내용을 기반으로 함수의 기능이 이해되지 않는다면, [Lodash](https://lodash.com/)의 Documentation에서 같은 이름의 함수를 찾아 살펴보세요.
-- "collection"이란, 배열 또는 객체를 의미합니다. "collection"에 대한 문제라면, 배열과 객체의 경우를 모두 만족하도록 코드를 작성해주세요.
+- You should be heavily referencing the lodash documentation to understand how your functions should work. [Lodash](https://lodash.com/)
+- "collection" means an array or an object. If it's a "collection" problem, please write your code to satisfy both array and object cases.
